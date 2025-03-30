@@ -1,4 +1,4 @@
-module github.com/vithsutra/vithsutra_email_sending_service
+module github.com/bhushan-aruto/go-email-service
 
 go 1.23.2
 

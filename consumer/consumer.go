@@ -4,9 +4,10 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/vithsutra/vithsutra_email_sending_service/email"
-	"github.com/vithsutra/vithsutra_email_sending_service/internal/models"
-	"github.com/vithsutra/vithsutra_email_sending_service/queue"
+	"github.com/bhushan-aruto/go-email-service/email"
+
+	"github.com/bhushan-aruto/go-email-service/internal/models"
+	"github.com/bhushan-aruto/go-email-service/queue"
 )
 
 func Start() {

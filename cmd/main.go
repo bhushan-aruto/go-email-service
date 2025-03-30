@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/bhushan-aruto/go-email-service/consumer"
 	"github.com/joho/godotenv"
-	"github.com/vithsutra/vithsutra_email_sending_service/consumer"
 )
 
 func init() {

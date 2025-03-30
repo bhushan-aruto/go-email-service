@@ -6,7 +6,7 @@ import (
 	"net/smtp"
 	"os"
 
-	"github.com/vithsutra/vithsutra_email_sending_service/internal/models"
+	"github.com/bhushan-aruto/go-email-service/internal/models"
 )
 
 func sendEmail(to string, subject string, htmlBody string) error {
