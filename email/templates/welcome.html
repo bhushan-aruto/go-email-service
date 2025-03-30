@@ -1,0 +1,202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Aspiration Matters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style type="text/css">
+        body,
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', Arial, sans-serif !important;
+            margin: 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .main-table {
+                width: 100% !important;
+            }
+
+            .mobile-padding {
+                padding: 20px 15px !important;
+            }
+
+            .header-text {
+                font-size: 20px !important;
+            }
+
+            .logo-img {
+                width: 150px !important;
+                margin-right: 0 !important;
+                margin-bottom: 10px !important;
+            }
+
+            .header-container {
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin: 0; padding: 0; background-color: #f8f8f8; font-family: 'Poppins', Arial, sans-serif;">
+    <!-- Preheader text (hidden) -->
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+        Welcome to Aspiration Matters - Begin your journey to unlock your full potential!
+    </div>
+
+    <!-- Main Container -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%"
+                    style="max-width: 600px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);" class="main-table">
+                    <!-- Welcome Banner with Logo -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #4a0080 0%, #8a2be2 100%); padding: 20px 30px; border-radius: 8px 8px 0 0;"
+                            class="mobile-padding">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td>
+                                        <div style="display: flex; align-items: center;" class="header-container">
+                                            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/AM_White_Logo-evzFvaYLuFOlVg8NsGxEKmwS4d60kt.png"
+                                                alt="Aspiration Matters Logo" width="150"
+                                                style="display: block; margin-right: 20px;" class="logo-img">
+                                            <h1 style="color: #ffffff; margin: 0; font-weight: 600; font-size: 24px;"
+                                                class="header-text">Welcome to Your Journey!</h1>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Welcome Message -->
+                    <tr>
+                        <td style="background-color: #ffffff; padding: 35px 30px 25px 30px;"
+                            class="mobile-padding animate-fade">
+                            <h2 style="margin: 0 0 20px 0; color: #4a0080; font-weight: 600; font-size: 20px;">
+                                Dear {{.user_name}},</h2>
+                            <p style="margin: 0 0 15px 0; color: #333333; font-size: 16px; line-height: 1.6;">
+                                Welcome to <strong>Aspiration Matters</strong>! We're delighted that you've joined our
+                                community of forward-thinking individuals committed to personal and professional growth.
+                            </p>
+                            <p style="margin: 0 0 15px 0; color: #333333; font-size: 16px; line-height: 1.6;">
+                                Your journey toward unlocking your full potential begins today. We believe that every
+                                individual possesses extraordinary capabilities waiting to be discovered and nurtured.
+                                Our expertly designed courses are here to help you identify your strengths, overcome
+                                challenges, and achieve your aspirations.
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Features Section -->
+                    <tr>
+                        <td style="background-color: #ffffff; padding: 0 30px 25px 30px;" class="mobile-padding">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td style="padding: 12px 0; border-left: 3px solid #8a2be2; padding-left: 15px;">
+                                        <p style="margin: 0; color: #333333; font-weight: 500; font-size: 16px;">
+                                            Personalized Learning Experience</p>
+                                        <p style="margin: 5px 0 0 0; color: #666666; font-size: 14px;">Access courses
+                                            tailored to your unique career goals and aspirations</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="padding: 12px 0; border-left: 3px solid #8a2be2; padding-left: 15px; margin-top: 12px; display: block;">
+                                        <p style="margin: 0; color: #333333; font-weight: 500; font-size: 16px;">Expert
+                                            Guidance</p>
+                                        <p style="margin: 5px 0 0 0; color: #666666; font-size: 14px;">Learn from
+                                            industry professionals who understand your challenges</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td
+                                        style="padding: 12px 0; border-left: 3px solid #8a2be2; padding-left: 15px; margin-top: 12px; display: block;">
+                                        <p style="margin: 0; color: #333333; font-weight: 500; font-size: 16px;">
+                                            Supportive Community</p>
+                                        <p style="margin: 5px 0 0 0; color: #666666; font-size: 14px;">Connect with
+                                            like-minded individuals on similar growth journeys</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- CTA Button -->
+                    <tr>
+                        <td style="background-color: #ffffff; padding: 5px 30px 35px 30px; text-align: center;"
+                            class="mobile-padding">
+                            <a href="#"
+                                style="background: linear-gradient(135deg, #4a0080 0%, #8a2be2 100%); color: #ffffff; text-decoration: none; padding: 12px 28px; border-radius: 4px; font-weight: 500; display: inline-block; font-size: 16px; transition: all 0.3s ease; letter-spacing: 0.3px; box-shadow: 0 4px 10px rgba(74, 0, 128, 0.2);">Begin
+                                Your Journey</a>
+                        </td>
+                    </tr>
+
+                    <!-- Additional Info -->
+                    <tr>
+                        <td style="background-color: #f9f5ff; padding: 25px 30px; border-radius: 0 0 8px 8px;"
+                            class="mobile-padding">
+                            <p style="margin: 0 0 15px 0; color: #333333; font-size: 15px; line-height: 1.6;">
+                                "Aspiration matters in life, to reach for and touch the sky. With the right foundation,
+                                you have the power to elevate your game because it's within you."
+                            </p>
+                            <p style="margin: 0 0 15px 0; color: #333333; font-size: 15px; line-height: 1.6;">
+                                If you have any questions, our team is here to support you at <a
+                                    href="mailto:aspirationmatters@gmail.com"
+                                    style="color: #4a0080; text-decoration: none; font-weight: 500;">aspirationmatters@gmail.com</a>.
+                            </p>
+                            <p style="margin: 0; color: #333333; font-size: 15px; line-height: 1.6;">
+                                Warm regards,<br>
+                                <strong>The Aspiration Matters Team</strong>
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td align="center" style="padding: 20px 30px; color: #666666; font-size: 13px;">
+                            <p style="margin: 0 0 5px 0;">© 2025 Aspiration Matters. All rights reserved.</p>
+                            <p style="margin: 0;">
+                                <a href="#" style="color: #4a0080; text-decoration: none; margin: 0 8px;">Privacy
+                                    Policy</a> |
+                                <a href="#" style="color: #4a0080; text-decoration: none; margin: 0 8px;">Terms of
+                                    Service</a> |
+                                <a href="#"
+                                    style="color: #4a0080; text-decoration: none; margin: 0 8px;">Unsubscribe</a>
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
