@@ -5,16 +5,17 @@ import (
 	"log"
 
 	"github.com/bhushan-aruto/go-email-service/email"
-
 	"github.com/bhushan-aruto/go-email-service/internal/models"
 	"github.com/bhushan-aruto/go-email-service/queue"
+	"github.com/streadway/amqp"
 )
 
 func Start() {
 	conn, channel, queue := queue.Connect()
-
 	defer conn.Close()
 	defer channel.Close()
+
+	channel.Qos(1, 0, false)
 
 	messages, err := channel.Consume(
 		queue.Name,
@@ -27,38 +28,46 @@ func Start() {
 	)
 
 	if err != nil {
-		log.Fatalln("error occurred while connecing to queue, Error: ", err.Error())
+		log.Fatalln("Error connecting to queue:", err.Error())
 	}
 
-	log.Println("message service started succuessfully..")
+	log.Println("Message service started successfully...")
 
 	for message := range messages {
 		emailRequest := new(models.Email)
 
 		if err := json.Unmarshal(message.Body, emailRequest); err != nil {
-			log.Println("error occurred while decoding the json messaage, Error: ", err.Error())
+			log.Println("Failed to decode message JSON:", err.Error())
 			message.Ack(false)
 			continue
 		}
 
 		switch emailRequest.EmailType {
 		case "otp":
-			if err := email.SendOtpEmail(emailRequest); err != nil {
-				log.Println("error occurred while sending the otp email, Error: ", err.Error())
-				continue
-			}
-
-			message.Ack(false)
+			handleWithRetry(message, email.SendOtpEmail, emailRequest)
 		case "welcome":
-			if err := email.WelcomeEmail(emailRequest); err != nil {
-				log.Println("error occurred while sending the welocome email, Error: ", err.Error())
-				continue
-			}
-			message.Ack(false)
+			handleWithRetry(message, email.WelcomeEmail, emailRequest)
 		default:
-			log.Println("invalid email type email request was receieved")
+			log.Println("Invalid email type received:", emailRequest.EmailType)
 			message.Ack(false)
 		}
-
 	}
+}
+
+func handleWithRetry(message amqp.Delivery, sendFunc func(*models.Email) error, emailRequest *models.Email) {
+	const maxRetries = 3
+
+	for i := 0; i < maxRetries; i++ {
+		if err := sendFunc(emailRequest); err == nil {
+			log.Printf("[%s] Email sent to: %s", emailRequest.EmailType, emailRequest.To)
+			message.Ack(false)
+			return
+		} else {
+			log.Printf("[%s] Retry %d/%d failed for: %s, Error: %v",
+				emailRequest.EmailType, i+1, maxRetries, emailRequest.To, err)
+		}
+	}
+
+	log.Printf("[%s] Email failed after %d retries: %s", emailRequest.EmailType, maxRetries, emailRequest.To)
+	message.Nack(false, false)
 }
