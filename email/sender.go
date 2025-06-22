@@ -1,44 +1,39 @@
 package email
 
 import (
-	"errors"
 	"fmt"
-	"net/smtp"
 	"os"
 
 	"github.com/bhushan-aruto/go-email-service/internal/models"
+	"github.com/sendgrid/sendgrid-go"
+	"github.com/sendgrid/sendgrid-go/helpers/mail"
 )
 
+
 func sendEmail(to string, subject string, htmlBody string) error {
-	from := os.Getenv("ROOT_EMAIL")
-	if from == "" {
-		return errors.New("missing ROOT_EMAIL env variable")
+	fromEmail := os.Getenv("ROOT_EMAIL")
+	apiKey := os.Getenv("SENDGRID_API_KEY")
+
+	if fromEmail == "" || apiKey == "" {
+		return fmt.Errorf("missing SENDGRID_API_KEY or ROOT_EMAIL")
 	}
 
-	password := os.Getenv("ROOT_EMAIL_PASSWORD")
+	from := mail.NewEmail("Aspiration Matters", fromEmail)
+	toEmail := mail.NewEmail("", to)
+	message := mail.NewSingleEmail(from, subject, toEmail, "", htmlBody)
 
-	if password == "" {
-		return errors.New("missing ROOT_EMAIL_PASSWORD env variable")
+	client := sendgrid.NewSendClient(apiKey)
+	response, err := client.Send(message)
+
+	if err != nil {
+		return fmt.Errorf("sendgrid error: %v", err)
 	}
 
-	smtpHost := os.Getenv("SMTP_HOST")
-
-	if smtpHost == "" {
-		return errors.New("missing SMTP_HOST env variable")
+	if response.StatusCode >= 400 {
+		return fmt.Errorf("sendgrid API response error: %v - %v", response.StatusCode, response.Body)
 	}
 
-	smtpPort := os.Getenv("SMTP_PORT")
-
-	if smtpPort == "" {
-		return errors.New("missing SMTP_PORT env variable")
-	}
-
-	message := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n"
-	message += fmt.Sprintf("From: %s\nTo: %s\nSubject: %s\n\n%s", from, to, subject, htmlBody)
-
-	err := smtp.SendMail(smtpHost+":"+smtpPort, smtp.PlainAuth("", from, password, smtpHost), from, []string{to}, []byte(message))
-
-	return err
+	return nil
 }
 
 func SendOtpEmail(message *models.Email) error {
