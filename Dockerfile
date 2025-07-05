@@ -9,6 +9,9 @@ ENV CGO_ENABLED=0 \
 # Set working directory
 WORKDIR /app
 
+
+
+
 # Copy go.mod and go.sum first for dependency caching
 COPY go.mod go.sum ./
 RUN go mod download
@@ -22,6 +25,9 @@ RUN go build -o main ./cmd
 
 # ---------- STAGE 2: Final (slim Debian) ----------
 FROM debian:bullseye-slim
+
+
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 
 # Add a non-root user
 RUN useradd -m -s /bin/bash asp
